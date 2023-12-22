@@ -132,7 +132,7 @@
 
 <body>
     <div id="assistant-container">
-        <h1>Voice Assistant</h1>
+        <h1>Ishan Voice Assistant</h1>
         <p>Click the microphone and speak or type a command:</p>
         <button id="microphone" onclick="startListening()">🎤 Mujhe Daba Kar Bol Bhai</button>
         <div id="output"></div>
@@ -149,13 +149,17 @@
         recognition.lang = 'en-US';
         recognition.interimResults = false;
         recognition.maxAlternatives = 1;
-        
-
+     
         recognition.onresult = function (event) {
-            const result = event.results[0][0].transcript;
-            document.getElementById('output').innerHTML = `<p>You said: ${result}</p>`;
-            handleUserCommand(result);
-        };
+        const result = event.results[0][0].transcript;
+        document.getElementById('output').innerHTML = `<p>You said: ${result}</p>`;
+        handleUserCommand(result);
+        
+        // Check if the spoken text includes "ishan" and restart listening
+        if (result.toLowerCase().includes('ishan')) {
+            startListening();
+        }
+    };
 
         recognition.onerror = function (event) {
             console.error('Speech recognition error:', event.error);
@@ -185,7 +189,7 @@
             } else if (query.includes('open google')) {
                 openUrl("https://www.google.com");
             }
-            else if (query.includes('Hello')) {
+            else if (query.includes('hello')) {
                 openUrl("https://instagram.fbdq2-1.fna.fbcdn.net/v/t51.2885-19/368564862_854767079647890_3299188820303793595_n.jpg?stp=dst-jpg_s320x320&_nc_ht=instagram.fbdq2-1.fna.fbcdn.net&_nc_cat=106&_nc_ohc=8lqoo36PWe4AX_HCmmh&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfCy4ukbcpXuXADmUQJ-Ph-K4VvcAUaPDedROLrTS9uFmQ&oe=6588C373&_nc_sid=8b3546");
             }
             else if (query.includes('open akram')) {
