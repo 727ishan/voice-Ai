@@ -181,6 +181,39 @@
         function handleUserCommand(query) {
             query = query.toLowerCase();
 
+//wkyyyyyyyyyyyyyyyyyyyyyyyyy
+            function searchWikipedia(query) {
+    const searchTerm = query.replace('wikipedia', '').trim();
+    const apiUrl = `https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=${searchTerm}&utf8=1`;
+
+    axios.get(apiUrl)
+        .then(response => {
+            const data = response.data;
+            const searchResults = data.query.search;
+
+            if (searchResults.length > 0) {
+                const firstResult = searchResults[0];
+                const title = firstResult.title;
+                const snippet = firstResult.snippet;
+                const url = `https://en.wikipedia.org/wiki/${title.replace(/ /g, '_')}`;
+
+                document.getElementById('output').innerHTML = `
+                    <p>Wikipedia search results for '${searchTerm}':</p>
+                    <p><strong>${title}</strong></p>
+                    <p>${snippet}...</p>
+                    <a href="${url}" target="_blank">Read more on Wikipedia</a>
+                `;
+            } else {
+                document.getElementById('output').innerHTML = `<p>No results found for '${searchTerm}' on Wikipedia.</p>`;
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching Wikipedia data:', error);
+            document.getElementById('output').innerHTML = '<p>Error fetching Wikipedia data. Please try again later.</p>';
+        });
+}
+
+            
             if (query.includes('wikipedia')) {
                 console.log('Searching Wikipedia...');
                 // Perform Wikipedia search here
