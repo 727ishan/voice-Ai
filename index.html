@@ -136,7 +136,7 @@
     <div id="assistant-container">
         <h1>Ishan Voice Assistant</h1>
         <p>Click the microphone and speak or type a command:</p>
-        <button id="microphone" onclick="startListening()">🎤 STOP</button>
+        <button id="microphone" onclick="startListening()">🎤 START</button>
         <div id="output"></div>
         <input type="text" id="user-input" placeholder="Type a command...">
         <button onclick="handleUserCommand(document.getElementById('user-input').value)">Submit</button>
@@ -169,11 +169,11 @@
 
         function startListening() {
             recognition.start();
-            document.getElementById('microphone').innerText = '🔴 START';
+            document.getElementById('microphone').innerText = '🔴 STOP';
         }
 
         recognition.onend = function () {
-            document.getElementById('microphone').innerText = '🎤 STOP';
+            document.getElementById('microphone').innerText = '🎤 START';
         };
 
         function openUrl(url) {
